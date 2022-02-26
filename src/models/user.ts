@@ -31,6 +31,35 @@ class UserModel {
             )
         }
     }
+    // get specific user
+    async getOne(id: string): Promise<User> {
+        try {
+            const sql = `SELECT id, email, user_name, first_name, last_name FROM users 
+      WHERE id=($1)`
+
+            const connection = await db.connect()
+
+            const result = await connection.query(sql, [id])
+
+            connection.release()
+            return result.rows[0]
+        } catch (error) {
+            throw new Error(`Could not find user ${id}, ${(error as Error).message}`)
+        }
+    }
+      // get all users
+  async getMany(): Promise<User[]> {
+    try {
+      const connection = await db.connect()
+      const sql =
+        'SELECT id, email, user_name, first_name, last_name from users'
+      const result = await connection.query(sql)
+      connection.release()
+      return result.rows
+    } catch (error) {
+      throw new Error(`Error at retrieving users ${(error as Error).message}`)
+    }
+  }
 
 }
 export default UserModel

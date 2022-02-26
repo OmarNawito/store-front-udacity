@@ -15,7 +15,6 @@ const {
   SALT_ROUNDS,
   TOKEN_SECRET,
 } = process.env
-console.log('process', process.env)
 
 export default {
   port: PORT,

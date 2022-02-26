@@ -1,10 +1,17 @@
+##user create
 POST http://localhost:3000/api/users
 content-type: application/json
 
 {
-    "user_name": "omar",
-    "first_name": "omar",
-    "last_name": "nawito",
-    "email": "o_mohsen@hotmail.com",
-    "password": "123456789"
+    "user_name": "omar1",
+    "first_name": "omar1",
+    "last_name": "nawito1",
+    "email": "o_mohsen1@hotmail.com",
+    "password": "1234567891"
 }
+### get user
+GET http://localhost:3000/api/users/52b1df27-6c1f-4106-8aad-7b62d0fa1c91
+content-type: application/json
+### get all users
+GET http://localhost:3000/api/users
+content-type: application/json
