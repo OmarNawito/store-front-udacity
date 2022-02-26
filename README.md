@@ -1,5 +1,12 @@
 # storeFrontBackend-Udacity
 an api backend project for a storefront
+## Description
+
+This application provides API endpoints for the Storefront project allowing the following operations in the backend:
+
+- CREATE / READ / UPDATE  **`users`** data
+- CREATE / READ / UPDATE  **`products`** data
+- CREATE / UPDATE **`orders`** data
 
 ### Packages
 #### express
@@ -53,6 +60,185 @@ We shall create the dev and test database.
     - Grant for dev database
         - `\c shopping`
         - `GRANT ALL PRIVILEGES ON DATABASE shopping TO shopping_user;`
+
+## Database Schema
+
+The following tables are created in the _postgres_ database
+
+- users
+
+  ```
+  | Column Name | Data Type             |
+  | ----------- | --------------------- |
+  | id          | integer (PRIMARY KEY) |
+  | firstname   | varchar               |
+  | lastname    | varchar               |
+  | username    | varchar               |
+  | password    | varchar               |
+  ```
+
+- orders
+
+  ```
+  | Column Name | Data Type                            |
+  | ----------- | ------------------------------------ |
+  | id          | integer (PRIMARY KEY)                |
+  | status      | varchar                              |
+  | user_id     | integer (FOREIGN KEY to users table) |
+  ```
+
+- products
+
+  ```
+  | Column Name | Data Type              |
+  | ----------- | ---------------------- |
+  | id          | integer (PRIMARY KEY)  |
+  | name        | varchar                |
+  | price       | integer                |
+  ```
+
+- order_products
+
+  ```
+  | Column Name | Data Type                               |
+  | ----------- | --------------------------------------- |
+  | id          | integer (PRIMARY KEY)                   |
+  | quantity    | integer                                 |
+  | order_id    | integer (FOREIGN KEY to orders table)   |
+  | product_id  | integer (FOREIGN KEY to products table) |
+  ```        
+
+## Project features
+
+This application provides the following API routes
+
+### Product
+
+- `Index: '/api/products' [GET]`
+
+  > http://localhost:3000/api/products
+
+- `Show: '/api/products/:id' [GET]`
+
+  > http://localhost:3000/api/products/1
+
+- `Create [token required]: '/api/products' [POST]`
+
+  > http://localhost:3000/api/products
+
+  Sample JSON to be passed in body
+
+  ```
+  {
+    "name": "IPHONE",
+    "price": 15000,
+    "category": "mobiles"
+  }
+  ```
+
+- `Update [token required]: '/api/products/:id' [PUT]`
+
+  > http://localhost:3000/api/products/1
+
+  Sample JSON to be passed in body
+
+  ```
+  {
+    "name": "IPHONE",
+    "price": 13000,
+    "category": "mobiles"
+  }
+  ```
+
+- `[OPTIONAL] Top 5 most popular products: '/products/top-five-most-popular' [GET]`
+
+  > http://localhost:3000/api/products/top-five-most-popular
+
+### Users
+
+- `Index [token required]: '/users' [GET]`
+
+  > http://localhost:3000/api/users
+
+- `Show [token required]: '/users/:id' [GET]`
+
+  > http://localhost:3000/api/users/1
+
+- `Create: '/users' [POST]`
+
+  > http://localhost:3000/api/users
+
+  Sample JSON to be passed in body
+
+  ```
+  {
+    "firstname": "omar",
+    "lastname": "nawito",
+    "username": "nawito",
+    "password": "123456789"
+  }
+  ```
+
+- `Authenticate:'/api/users/authenticate' [POST]`
+
+  > http://localhost:3000/api/users/authenticate
+
+  Sample JSON to be passed in body
+
+  ```
+  {
+    "username": "nawito",
+    "password": "123456789"
+  }
+  ```
+
+- `Update [token required]: '/api/users/:id' [PUT]`
+
+  > http://localhost:3000/api/users/1
+
+  Sample JSON to be passed in body
+
+  ```
+  {
+    "firstname": "fName",
+    "lastname": "lName",
+    "username": "testuser",
+    "password": "testpassword"
+  }
+  ```
+
+### Orders
+
+- `Get all orders: '/api/orders' [GET]`
+
+  > http://localhost:3000/api/orders
+  
+- `Create [token required]: '/orders' [POST]`
+
+  > http://localhost:3000/orders
+
+  Sample JSON to be passed in body [Optional]
+
+  ```
+  {}
+  ```
+
+- `Get Order [token required]: '/orders/:id' [POST]`
+
+> http://localhost:3000/orders/1
+
+- `Add Product to Order [token required]: '/orders/:id' [POST]`
+
+  > http://localhost:3000/orders/1
+
+  Sample JSON to be passed in body
+
+  ```
+  {
+    "productId": 4,
+    "quantity": 5
+  }
+  ```        
 
 ### Migrate Database
 Navigate to the root directory and run the command below to migrate the database 

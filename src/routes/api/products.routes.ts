@@ -6,6 +6,7 @@ const routes = Router()
 // api/products
 routes.route('/').post(authenticationMiddleware, controllers.createProduct)
 routes.route('/').get( controllers.getAllProducts)
+routes.route('/top-five-most-popular').get( controllers.getTopFiveMostPopularProducts)
 routes.route('/:id').get(controllers.getProduct)
 
 export default routes

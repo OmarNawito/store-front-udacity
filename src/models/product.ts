@@ -47,6 +47,27 @@ class ProductModel{
       throw new Error(`Could not find product ${id}, ${(error as Error).message}`)
     }
   }
+
+  async getTopFiveMostPopularProducts(): Promise<product[]> {
+    try {
+      const sql =
+        'SELECT p.id, p.name, p.price, p.category FROM order_products op INNER JOIN products p ON op.product_id = p.id GROUP BY p.id ORDER BY SUM(op.quantity) DESC LIMIT 5'
+      // @ts-ignore
+      const conn = await client.connect()
+
+      const result = await conn.query(sql)
+
+      const products: product[] = result.rows
+
+      conn.release()
+
+      return products
+    } catch (err) {
+      throw new Error(
+        `DB error retrieving top 5 most popular products. Error: ${err}`
+      )
+    }
+  }
 }
 
 

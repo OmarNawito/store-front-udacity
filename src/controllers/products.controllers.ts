@@ -53,3 +53,12 @@ export const createProduct = async (
       next(err)
     }
   }
+
+  export const getTopFiveMostPopularProducts = async (req: Request, res: Response) => {
+    try {
+      const products = await productsModel.getTopFiveMostPopularProducts()
+      res.json(products)
+    } catch (error) {
+      res.status(500)
+    }
+  }
