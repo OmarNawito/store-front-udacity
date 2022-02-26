@@ -4,10 +4,10 @@ POST http://localhost:3000/api/users
 content-type: application/json
 
 {
-    "user_name": "omar1",
-    "first_name": "omar1",
-    "last_name": "nawito1",
-    "email": "o_mohsen1@hotmail.com",
+    "user_name": "omar12",
+    "first_name": "omar12",
+    "last_name": "nawito12",
+    "email": "o_mohsen123@hotmail.com",
     "password": "1234567891"
 }
 ### get user
@@ -25,6 +25,7 @@ content-type: application/json
 ### create product
 POST http://localhost:3000/api/products
 content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiYWE5OWUyOWMtODJlYi00Nzk5LTg2NzMtYzA1NjZjZWIzZjFiIiwiZW1haWwiOiJvX21vaHNlbjEyM0Bob3RtYWlsLmNvbSIsInVzZXJfbmFtZSI6Im9tYXIxMiIsImZpcnN0X25hbWUiOiJvbWFyMTIiLCJsYXN0X25hbWUiOiJuYXdpdG8xMiJ9LCJpYXQiOjE2NDU4OTQzNTN9.V87pR1875iL1CHVmDoF6na0BT7akJ6vOQlaETH-u7hw
 
 {
     "name": "iphone13",
@@ -48,6 +49,6 @@ POST http://localhost:3000/api/users/authenticate
 content-type: application/json
 
 {
-    "first_name": "omar1",
+    "first_name": "omar12",
     "password": "1234567891"
 }
