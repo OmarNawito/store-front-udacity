@@ -15,3 +15,17 @@ content-type: application/json
 ### get all users
 GET http://localhost:3000/api/users
 content-type: application/json
+### get all products
+GET http://localhost:3000/api/products
+content-type: application/json
+### get specific product
+GET http://localhost:3000/api/products/4d0582fc-c39e-4c69-87cd-fdb221a443b3
+content-type: application/json
+### create product
+POST http://localhost:3000/api/products
+content-type: application/json
+
+{
+    "name": "iphone13",
+    "price":215
+}
