@@ -7,4 +7,6 @@ const routes = Router()
 routes.route('/').post(controllers.create)
 routes.route('/:id').get(controllers.getOne)
 routes.route('/').get(controllers.getMany)
+// authentication
+routes.route('/authenticate').post(controllers.authenticate)
 export default routes

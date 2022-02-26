@@ -1,3 +1,4 @@
+
 ##user create
 POST http://localhost:3000/api/users
 content-type: application/json
@@ -42,3 +43,11 @@ content-type: application/json
 ### get all orders
 GET http://localhost:3000/api/orders
 content-type: application/json
+### get all orders
+POST http://localhost:3000/api/users/authenticate
+content-type: application/json
+
+{
+    "first_name": "omar1",
+    "password": "1234567891"
+}
