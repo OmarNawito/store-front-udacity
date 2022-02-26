@@ -29,3 +29,16 @@ content-type: application/json
     "name": "iphone13",
     "price":215
 }
+### create order
+POST http://localhost:3000/api/orders
+content-type: application/json
+
+{
+    "users_id": "52b1df27-6c1f-4106-8aad-7b62d0fa1c91",
+    "order_status": "completed",
+    "products_id": "4d0582fc-c39e-4c69-87cd-fdb221a443b3",
+    "product_quantity": 5
+}
+### get all orders
+GET http://localhost:3000/api/orders
+content-type: application/json
