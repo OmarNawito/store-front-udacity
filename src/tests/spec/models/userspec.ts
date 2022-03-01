@@ -54,13 +54,14 @@ describe('User Model ', () => {
 
     it('show method should return the correct user', async () => {
         const result = await store.getOne(user.id as string)
+        console.log('resultasssssssss', result)
 
         expect(result).toEqual(
             jasmine.objectContaining({
                 id: user.id,
-                firstname: 'First Name',
-                lastname: 'Last Name',
-                username: 'User Name',
+                first_name: 'First Name',
+                last_name: 'Last Name',
+                user_name: 'User Name',
             })
         )
     })

@@ -11,7 +11,6 @@ class UserModel {
   // create new user
   async create(u: User): Promise<User> {
     try {
-      console.log('u', u)
       const connection = await db.connect()
       const sql = `INSERT INTO users (email, user_name, first_name, last_name, password) 
                   values ($1, $2, $3, $4, $5) 
@@ -63,7 +62,6 @@ class UserModel {
   // authenticate
   async authenticate(first_name: string, password: string): Promise<User | null> {
     try {
-      console.log('first_name', first_name)
       const connection = await db.connect()
       const sql = 'SELECT password FROM users WHERE first_name=$1'
       const result = await connection.query(sql, [first_name])
@@ -85,6 +83,21 @@ class UserModel {
       return null
     } catch (error) {
       throw new Error(`Unable to login: ${(error as Error).message}`)
+    }
+  }
+
+  async removeAllUsers () {
+    try {
+      const sql = `DELETE FROM users`
+
+      const connection = await db.connect()
+
+      const result = await connection.query(sql)
+
+      connection.release()
+      return result.rows[0]
+    } catch (error) {
+      throw new Error(`Could not delete all users, ${(error as Error).message}`)
     }
   }
 }

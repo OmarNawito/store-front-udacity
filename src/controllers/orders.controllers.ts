@@ -9,6 +9,7 @@ export const createOrder = async (
     next: NextFunction
   ) => {
     try {
+      console.log('req.body', req.body)
       const order = await orderModel.createOrder(req.body)
       res.json({
         status: 'success',

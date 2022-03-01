@@ -4,18 +4,22 @@ POST http://localhost:3000/api/users
 content-type: application/json
 
 {
-    "user_name": "omar12",
-    "first_name": "omar12",
-    "last_name": "nawito12",
-    "email": "o_mohsen123@hotmail.com",
+    "user_name": "omarzz",
+    "first_name": "omarzz",
+    "last_name": "nawitozz",
+    "email": "o_mohsenzzz@hotmail.com",
     "password": "1234567891"
 }
 ### get user
 GET http://localhost:3000/api/users/52b1df27-6c1f-4106-8aad-7b62d0fa1c91
 content-type: application/json
+### delete user
+DELETE http://localhost:3000/api/users/52b1df27-6c1f-4106-8aad-7b62d0fa1c91
+content-type: application/json
 ### get all users
 GET http://localhost:3000/api/users
 content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiMjI3MzJhMzctNjEyNC00MmI3LWFkZTYtZjhkMzMyZWY4NzI5IiwiZW1haWwiOiJvX21vaHNlbnp6ekBob3RtYWlsLmNvbSIsInVzZXJfbmFtZSI6Im9tYXJ6eiIsImZpcnN0X25hbWUiOiJvbWFyenoiLCJsYXN0X25hbWUiOiJuYXdpdG96eiJ9LCJpYXQiOjE2NDYxMjkyNzB9.A_4PWwgnVKT31c57esiGPQNb94S8kJYWXJUQdOaQnj4
 ### get all products
 GET http://localhost:3000/api/products
 content-type: application/json
@@ -49,6 +53,6 @@ POST http://localhost:3000/api/users/authenticate
 content-type: application/json
 
 {
-    "first_name": "omar12",
+    "first_name": "omarzz",
     "password": "1234567891"
 }

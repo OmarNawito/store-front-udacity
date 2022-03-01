@@ -10,7 +10,7 @@
     "migration:run": "db-migrate up",
     "prettify": "prettier --config .prettierrc src/**/*.ts --write",
     "lint": "eslint . --ext .ts",
-    "test": "db-migrate --env=test up && npm run build && npm run jasmine && db-migrate --env=test down -c=4",
+    "test": "db-migrate --env=dev up && npm run build && npm run jasmine && db-migrate --env=dev down",
     "jasmine": "jasmine"
   },
   "keywords": [],

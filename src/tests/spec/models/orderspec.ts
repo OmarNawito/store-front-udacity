@@ -19,31 +19,36 @@ describe('Order Model', () => {
   describe('Manipulate Order methods', () => {
     const user = new User();
     const product = new Product();
-
+    let userID: string | undefined
+    let productData: {} | undefined
     beforeAll(async () => {
-      await user.create({
+      const userRes = await user.create({
         first_name: 'omar',
         last_name: 'nawito',
-        email: 'test@test.com',
+        email: 'test11111111111111111111111@test.com',
         user_name: 'test',
-        password: 'thisismeenow2020#'
+        password: 'test#'
       });
-      await product.createProduct({
+      userID = userRes.id
+      console.log('aaaaaaaaaaaaaaaaaaa', userRes)
+      const productRes = await product.createProduct({
         name: 'iPhone',
         price: 645,
       });
+      productData = productRes
     });
 
     it('should create order using createOrder method', async () => {
       const result: order = await order.createOrder({
         products: [],
-        users_id: '1',
+        users_id: userID as string,
         order_status: 'open'
       });
+      console.log('result', result)
       expect(result).toEqual({
-        id: '1',
+        order_id: result.order_id,
         products: [],
-        users_id: '1',
+        users_id: userID as string,
         order_status: 'open'
       });
     });

@@ -5,6 +5,7 @@ class OrderModel{
     // create an order
     async createOrder(order:order):Promise<order>{
         const {products} = order
+        console.log('products', order)
         try {
             const connection = await db.connect();
             const query = `INSERT INTO orders (users_id,order_status) 

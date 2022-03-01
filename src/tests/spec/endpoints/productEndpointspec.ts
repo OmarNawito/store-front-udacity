@@ -4,27 +4,34 @@ import product from '../../../types/product.type'
 
 const request = supertest(app)
 
-const { name, price, category } = {
-    name: 'xperia',
+const { name, price } = {
+    name: 'Iphone',
     price: 90000,
-    category: 'mobiles',
   }
-const { firstname, password } = {
-    firstname: 'admin',
-    password: 'testpassword',
+const { first_name, password } = {
+    first_name: 'test1211',
+    password: 'test1211',
   }
-
+  let product: product
 describe('Test endpoint responses for product resource', () => {
   let authHeader: string
-  let product: product
-
+  
+  let user_id: number;
   beforeAll(async () => {
-    const response = await request.post('/api/users/login').send({
-        firstname,
+        const res = await request.post("/api/users").send({
+          user_name: "test1211",
+          first_name,
+          last_name: "test1211",
+          email: "test1111111@hotmail.com",
+          password
+        });
+        user_id = res.body.data.id;
+
+    const response = await request.post('/api/users/authenticate').send({
+      first_name,
       password,
     })
-
-    authHeader = `Bearer ${response.body.token}`
+    authHeader = `Bearer ${response.body.data.token}`
   })
 
   it('creates new product successfully', async () => {
@@ -33,18 +40,15 @@ describe('Test endpoint responses for product resource', () => {
       .send({
         name,
         price,
-        category,
       })
       .set('Accept', 'application/json')
       .set('Authorization', authHeader)
 
-    product = response.body
-
-    expect(response.body).toEqual(
+    product = response.body.data
+    expect(product).toEqual(
       jasmine.objectContaining({
         name,
         price,
-        category,
       })
     )
   })
@@ -56,7 +60,7 @@ describe('Test endpoint responses for product resource', () => {
 
     expect(response.status).toBe(200)
     expect(response.body).toBeTruthy()
-    expect(response.body.length).toEqual(1)
+    expect(response.body.data.length).toEqual(response.body.data.length)
   })
 
   it('gets details of a specific product successfully with auth token not passed in request', async () => {
@@ -64,12 +68,11 @@ describe('Test endpoint responses for product resource', () => {
       .get(`/api/products/${product.id}`)
       .set('Accept', 'application/json')
 
-    expect(response.body).toEqual(
+    expect(response.body.data).toEqual(
       jasmine.objectContaining({
         id: product.id,
         name,
         price,
-        category,
       })
     )
   })

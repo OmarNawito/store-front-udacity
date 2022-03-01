@@ -52,6 +52,21 @@ export const getMany = async (
     }
   }
 
+  export const remove = async(_req: Request,
+    res: Response,
+    next: NextFunction) => {
+    try {
+      const user = await userModel.removeAllUsers()
+      res.json({
+          status: 'success',
+          data: user,
+          message: 'Users removed successfully',
+      })
+  } catch (err) {
+      next(err)
+  }
+  }
+
   export const authenticate = async (
     req: Request,
     res: Response,
@@ -59,7 +74,6 @@ export const getMany = async (
   ) => {
     try {
       const { first_name, password } = req.body
-        console.log(req.body)
       const user = await userModel.authenticate(first_name, password)
       const token = jwt.sign({ user }, config.tokenSecret as unknown as string)
       if (!user) {

@@ -5,14 +5,13 @@ import product  from '../../../types/product.type'
 
 const request = supertest(app)
 
-const { name, price, category } = {
-    name: 'xperia',
+const { name, price } = {
+    name: 'Iphone',
     price: 90000,
-    category: 'mobiles',
   }
-const { firstname, password } = {
-    firstname: 'admin',
-    password: 'testpassword',
+const { first_name, password } = {
+    first_name: 'test12111',
+    password: 'test12111',
   }
 
 describe('Test endpoint responses for order resource', () => {
@@ -20,60 +19,50 @@ describe('Test endpoint responses for order resource', () => {
   let userId: string
   let order: order
   let product: product
-
   beforeAll(async () => {
+    const userRes = await request.post("/api/users").send({
+        user_name: "test12111",
+        first_name,
+        last_name: "test12111",
+        email: "test1111111@hotmail.com1",
+        password
+      });
     const response = await request.post('/api/users/authenticate').send({
-        firstname,
+      first_name,
       password,
     })
 
-    authHeader = `Bearer ${response.body.token}`
-    userId = response.body.userId
+    authHeader = `Bearer ${response.body.data.token}`
+    userId = response.body.data.id
 
     const res = await request
       .post('/api/products')
       .send({
         name,
         price,
-        category,
       })
       .set('Accept', 'application/json')
       .set('Authorization', authHeader)
 
-    product = res.body
+    product = res.body.data
   })
 
   it('creates new order successfully', async () => {
     const response = await request
       .post('/api/orders')
+      .send({
+        order_status: "open",
+        products: [{products_id: product.id, product_quantity: 5}],
+        users_id: userId, 
+      })
       .set('Accept', 'application/json')
       .set('Authorization', `${authHeader}`)
-
-    order = response.body
-
+        console.log('order', response.body)
+        order = response.body.data
     expect(order).toEqual(
       jasmine.objectContaining({
-        status: 'open',
-        user_id: userId,
-      })
-    )
-  })
-
-  it('product can be added successfully to an order with auth token passed in request', async () => {
-    const response = await request
-      .post(`/api/orders/${order.id}`)
-      .send({
-        productId: product.id,
-        quantity: 5,
-      })
-      .set('Accept', 'application/json')
-      .set('Authorization', `${authHeader}`)
-
-    expect(response.body).toEqual(
-      jasmine.objectContaining({
-        quantity: 5,
-        order_id: order.id,
-        product_id: product.id,
+        order_status: 'open',
+        users_id: userId,
       })
     )
   })
